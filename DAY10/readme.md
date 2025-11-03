@@ -1,6 +1,6 @@
 # Day10_SmartCanteenBilling
-**Student Name:** T. Gagan Adithya Ram  
-**Roll No:** AP25110090156  
+**Student Name:** P. Nanda Kishore
+**Roll No:** AP25110090190  
 **Challenge:** Day 10 - Smart Canteen Billing System
 
 ## Build Commands
