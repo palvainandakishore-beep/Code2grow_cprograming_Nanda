@@ -1,0 +1,118 @@
+#include <stdio.h>
+
+int main() {
+    int totalCustomers;
+    int roomsBooked = 0;
+    int totalRevenue = 0;
+    int highestBill = 0;
+    int lowestBill = 0;
+
+    // Room rates and service costs
+    int deluxeRate = 2500;
+    int superDeluxeRate = 4000;
+    int suiteRate = 6000;
+    int breakfastCost = 300;
+    int wifiCost = 100;
+    int gymCost = 200;
+
+    printf("========= SMART HOTEL ROOM BOOKING SYSTEM =========\n");
+
+    // Step 1: Ask how many customers are there
+    printf("Enter total number of customers: ");
+    scanf("%d", &totalCustomers);
+
+    // Step 2: Loop through each customer
+    for (int i = 1; i <= totalCustomers; i++) {
+        char name[50];
+        int roomType;
+        int days;
+        char breakfast, wifi, gym;
+        int baseFare, extraServices;
+        float subtotal, discount, gst, finalBill;
+
+        printf("\n--- CUSTOMER %d ---\n", i);
+
+        printf("Enter name: ");
+        scanf(" %[^\n]", name);  // Read full name (with spaces)
+
+        printf("Enter room type (1-Deluxe, 2-Super Deluxe, 3-Suite): ");
+        scanf("%d", &roomType);
+
+        printf("Enter number of days: ");
+        scanf("%d", &days);
+
+        printf("Breakfast (Y/N): ");
+        scanf(" %c", &breakfast);
+
+        printf("Wi-Fi (Y/N): ");
+        scanf(" %c", &wifi);
+
+        printf("Gym Access (Y/N): ");
+        scanf(" %c", &gym);
+
+        // Step 3: Calculate room charge
+        if (roomType == 1)
+            baseFare = deluxeRate * days;
+        else if (roomType == 2)
+            baseFare = superDeluxeRate * days;
+        else
+            baseFare = suiteRate * days;
+
+        // Step 4: Add optional services
+        extraServices = 0;
+        if (breakfast == 'Y' || breakfast == 'y')
+            extraServices += breakfastCost * days;
+        if (wifi == 'Y' || wifi == 'y')
+            extraServices += wifiCost * days;
+        if (gym == 'Y' || gym == 'y')
+            extraServices += gymCost * days;
+
+        // Step 5: Calculate total before tax and discounts
+        subtotal = baseFare + extraServices;
+
+        // Step 6: Discount if total > ₹10,000
+        if (subtotal > 10000)
+            discount = subtotal * 0.10;
+        else
+            discount = 0;
+
+        // Step 7: Apply GST (12%)
+        gst = (subtotal - discount) * 0.12;
+
+        // Step 8: Final bill
+        finalBill = subtotal - discount + gst;
+
+        // Step 9: Update totals
+        roomsBooked++;
+        totalRevenue += (int)(finalBill + 0.5);  // Add rounded bill
+
+        // Step 10: Track highest and lowest bills
+        if (i == 1) {
+            highestBill = lowestBill = (int)(finalBill + 0.5);
+        } else {
+            if ((int)(finalBill + 0.5) > highestBill)
+                highestBill = (int)(finalBill + 0.5);
+            if ((int)(finalBill + 0.5) < lowestBill)
+                lowestBill = (int)(finalBill + 0.5);
+        }
+
+        // Step 11: Print customer bill
+        printf("\n--- BILL SUMMARY FOR %s ---\n", name);
+        printf("Base Fare          : ₹%d\n", baseFare);
+        printf("Extra Services     : ₹%d\n", extraServices);
+        printf("Subtotal           : ₹%.0f\n", subtotal);
+        printf("Discount (10%%)     : ₹%.0f\n", discount);
+        printf("GST (12%%)          : ₹%.0f\n", gst);
+        printf("Final Bill         : ₹%.0f\n", finalBill);
+    }
+
+    // Step 12: Print overall summary
+    printf("\n========= HOTEL SUMMARY =========\n");
+    printf("Total Rooms Booked : %d\n", roomsBooked);
+    printf("Total Revenue      : ₹%d\n", totalRevenue);
+    printf("Highest Bill       : ₹%d\n", highestBill);
+    printf("Lowest Bill        : ₹%d\n", lowestBill);
+    printf("=================================\n");
+
+    return 0;
+}
