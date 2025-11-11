@@ -1,0 +1,13 @@
+ 1.  The program takes input of marks multiple students (maximum of 100) using a one-dimensional array.
+
+
+2.  It calculates the total marks and average the entire class.
+
+
+3.  It determines the highest scoring student and the lowest scoring student. 
+
+
+4.  It counts how many students passed and how many failed based on a passing mark condition.
+
+
+5.  It computes the class average and assigns grade distribution based on the marks obtained.
